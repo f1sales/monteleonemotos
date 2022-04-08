@@ -11,12 +11,12 @@ module Monteleonemotos
   # Your code goes here...
   class F1SalesCustom::Hooks::Lead
     def self.switch_source(lead)
-      if lead.message == '1010433'
-        lead.product.name = 'Mercês'
-      elsif lead.message == '1622153'
-        lead.product.name = 'São Roque'
-      elsif lead.product.name = '1629248'
-        lead.product.name = 'Ibiuna'
+      if lead.source == '1010433'
+        lead.source = "1010433 - Mercês"
+      elsif lead.source == '1622153'
+        lead.source = "1622153 - São Roque"
+      elsif lead.source = '1629248'
+        lead.source = "1629248 - Ibiuna"
       end
       lead
     end

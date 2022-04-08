@@ -6,7 +6,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
   let(:lead) do
     lead = OpenStruct.new
     lead.source = source
-    lead.product = product
+    #lead.product = product
     lead.customer = customer
     lead.message = '1010433'
 
@@ -22,43 +22,42 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
     customer
   end
 
-  let(:product) do
-    product = OpenStruct.new
-    product.name = ''
-
-    product
-  end
+  #let(:product) do
+  #  product = OpenStruct.new
+  #  product.name = ''
+#
+  #  product
+  #end
 
   let(:source) do
     source = OpenStruct.new
-    source.name = 'Somewhere - Monteleone Motos'
+    source.name = '1010433'
   end
 
   let(:switch_source) { described_class.switch_source(lead) }
 
 
   it 'When message is 1010433' do
-    expect(switch_source.product.name).to eq('Mercês')
+    expect(switch_source.source).to eq('1010433 - Mercês')
   end
 
   context 'When message is 1622153' do 
     before do
-      lead.message = '1622153'
+      lead.source = '1622153'
     end
 
     it 'When message is 1622153' do
-      expect(switch_source.product.name).to eq('São Roque')
+      expect(switch_source.source).to eq('1622153 - São Roque')
     end
   end
 
   context 'When message is 1629248' do 
     before do
-      lead.message = '1629248'
+      lead.source = '1629248'
     end
 
     it 'When message is 1629248' do
-      expect(switch_source.product.name).to eq('Ibiuna')
+      expect(switch_source.source).to eq('1629248 - Ibiuna')
     end
   end
 end
-
