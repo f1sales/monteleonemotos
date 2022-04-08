@@ -6,19 +6,9 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
   let(:lead) do
     lead = OpenStruct.new
     lead.source = source
-    lead.customer = customer
     lead.message = 'Código da concessionária 1010433'
 
     lead
-  end
-
-  let(:customer) do
-    customer = OpenStruct.new
-    customer.name = 'Raphael'
-    customer.phone = '11989114444'
-    customer.email = 'nathanael@f1sales.com.br'
-
-    customer
   end
 
   let(:source) do
@@ -30,7 +20,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
 
 
   it 'When message is 1010433' do
-    expect(switch_source.message).to eq('myHonda - Website Concessionária - Mercês')
+    expect(switch_source).to eq('myHonda - Website Concessionária - Mercês')
   end
 
   context 'When message is 1622153' do 
@@ -39,7 +29,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
     end
 
     it 'When message is 1622153' do
-      expect(switch_source.message).to eq('myHonda - Website Concessionária - São Roque')
+      expect(switch_source).to eq('myHonda - Website Concessionária - São Roque')
     end
   end
 
@@ -49,7 +39,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
     end
 
     it 'When message is 1629248' do
-      expect(switch_source.message).to eq('myHonda - Website Concessionária - Ibiuna')
+      expect(switch_source).to eq('myHonda - Website Concessionária - Ibiuna')
     end
   end
 end
