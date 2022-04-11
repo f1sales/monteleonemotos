@@ -8,14 +8,15 @@ module Monteleonemotos
   class Error < StandardError; end
   class F1SalesCustom::Hooks::Lead
     def self.switch_source(lead)
+      source_name = lead.source.name
       if lead.message.include?('1010433')
-        "#{lead.source.name} - Mercês"
+        "#{source_name} - Mercês"
       elsif lead.message.include?('1622153')
-        "#{lead.source.name} - São Roque"
+        "#{source_name} - São Roque"
       elsif lead.message.include?('1629248')
-        "#{lead.source.name} - Ibiuna"
+        "#{source_name} - Ibiuna"
       else
-        lead.source.name
+        source_name
       end
     end
   end
