@@ -1,6 +1,5 @@
 require 'webmock/rspec'
 require 'ostruct'
-require 'byebug'
 
 RSpec.describe F1SalesCustom::Hooks::Lead do
   let(:lead) do
@@ -14,10 +13,11 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
   let(:source) do
     source = OpenStruct.new
     source.name = 'myHonda - Website Concessionária'
+
+    source
   end
 
   let(:switch_source) { described_class.switch_source(lead) }
-
 
   it 'When message is 1010433' do
     expect(switch_source).to eq('myHonda - Website Concessionária - Mercês')
@@ -40,6 +40,14 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
 
     it 'When message is 1629248' do
       expect(switch_source).to eq('myHonda - Website Concessionária - Ibiuna')
+    end
+  end
+
+  context 'When the message does not have the dealership code' do
+    before { lead.message = '' }
+
+    it 'When the message does not have the dealership code' do
+      expect(switch_source).to eq('myHonda - Website Concessionária')
     end
   end
 end
