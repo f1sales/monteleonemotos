@@ -10,13 +10,12 @@ module Monteleonemotos
   class F1SalesCustom::Hooks::Lead
     def self.switch_source(lead)
       if lead.message.include?('1010433')
-        lead.message = "#{lead.source} - Mercês"
+        "#{lead.source} - Mercês"
       elsif lead.message.include?('1622153')
-        lead.message = "#{lead.source} - São Roque"
+        "#{lead.source} - São Roque"
       elsif lead.message.include?('1629248')
-        lead.message = "#{lead.source} - Ibiuna"
+        "#{lead.source} - Ibiuna"
       end
-      lead
     end
   end
 end
