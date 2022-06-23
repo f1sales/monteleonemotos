@@ -9,12 +9,21 @@ module Monteleonemotos
   class F1SalesCustom::Hooks::Lead
     def self.switch_source(lead)
       source_name = lead.source.name
-      if lead.message.include?('1010433')
+      lead_message = lead.message ? lead.message : ''
+      lead_phone = lead.customer&.phone ? lead.customer.phone.tr('^0-9', '') : ''
+
+      if lead_message.include?('1010433')
         "#{source_name} - Mercês"
-      elsif lead.message.include?('1622153')
+      elsif lead_message.include?('1622153')
         "#{source_name} - São Roque"
-      elsif lead.message.include?('1629248')
+      elsif lead_message.include?('1629248')
         "#{source_name} - Ibiuna"
+      elsif source_name.downcase.include?('mobiauto')
+        if lead_phone[0..1] == '11' || lead_phone[0..1] == '15'
+          "#{source_name} - DDD"
+        else
+          "#{source_name} - Descarte"
+        end
       else
         source_name
       end
