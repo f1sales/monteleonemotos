@@ -11,9 +11,11 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       lead
     end
 
+    let(:source_name) { 'Mercado Livre' }
+
     let(:source) do
       source = OpenStruct.new
-      source.name = 'myHonda - Website Concessionária'
+      source.name = source_name
 
       source
     end
@@ -21,26 +23,26 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
     let(:switch_source) { described_class.switch_source(lead) }
 
     it 'When message is 1010433' do
-      expect(switch_source).to eq('myHonda - Website Concessionária - Mercês')
+      expect(switch_source).to eq("#{source_name} - Mercês")
     end
 
-    context 'When message is 1622153' do 
+    context 'When message is 1622153' do
       before do
         lead.message = 'Código da concessionária 1622153'
       end
 
       it 'When message is 1622153' do
-        expect(switch_source).to eq('myHonda - Website Concessionária - São Roque')
+        expect(switch_source).to eq("#{source_name} - São Roque")
       end
     end
 
-    context 'When message is 1629248' do 
+    context 'When message is 1629248' do
       before do
         lead.message = 'Código da concessionária 1629248'
       end
 
       it 'When message is 1629248' do
-        expect(switch_source).to eq('myHonda - Website Concessionária - Ibiuna')
+        expect(switch_source).to eq("#{source_name} - Ibiuna")
       end
     end
 
@@ -48,12 +50,12 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       before { lead.message = '' }
 
       it 'When the message does not have the dealership code' do
-        expect(switch_source).to eq('myHonda - Website Concessionária')
+        expect(switch_source).to eq(source_name)
       end
     end
   end
 
-  context "when come from Mobiauto" do
+  context "when needs to change source" do
     let(:lead) do
       lead = OpenStruct.new
       lead.source = source
@@ -80,23 +82,41 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
 
     let(:switch_source) { described_class.switch_source(lead) }
 
-    it "phone is from São Paulo" do
-      expect(switch_source).to eq('Mobiauto - DDD')
-    end
-
-    context "when phone is from interior of São Paulo" do
-      before { customer.phone = '15912342342'}
-
-      it 'return Mobiauto - DDD' do
+    context 'when is from Mobiauto' do
+      it 'phone is from São Paulo' do
         expect(switch_source).to eq('Mobiauto - DDD')
+      end
+
+      context 'when phone is from interior of São Paulo' do
+        before { customer.phone = '15912342342' }
+
+        it 'return Mobiauto - DDD' do
+          expect(switch_source).to eq('Mobiauto - DDD')
+        end
+      end
+
+      context 'when phone is not from São Paulo or interior of São Paulo' do
+        before { customer.phone = '22912341234' }
+
+        it 'return Mobiauto - Descarte' do
+          expect(switch_source).to eq('Mobiauto - Descarte')
+        end
       end
     end
 
-    context "when phone is not from São Paulo or interior of São Paulo" do
-      before { customer.phone = '22912341234'}
+    context 'when is from Honda Social' do
+      before { source.name = 'myHonda - Social - Sroque' }
 
-      it 'return Mobiauto - Descarte' do
-        expect(switch_source).to eq('Mobiauto - Descarte')
+      it 'return MyHonda' do
+        expect(switch_source).to eq('Website Honda')
+      end
+    end
+
+    context 'when is from Website Honda' do
+      before { source.name = '(sem time) Website Honda' }
+
+      it 'return MyHonda' do
+        expect(switch_source).to eq('Website Honda')
       end
     end
   end
