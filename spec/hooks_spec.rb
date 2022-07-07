@@ -104,137 +104,137 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
         end
       end
     end
-  end
 
-  context 'when source is myHonda - Website Concessionária' do
-    let(:source_name) { 'myHonda - Website Concessionária' }
+    context 'when source is myHonda - Website Concessionária' do
+      let(:source_name) { 'myHonda - Website Concessionária' }
 
-    context 'without city' do
-      before do
-        source.name = source_name
+      context 'without city' do
+        before do
+          source.name = source_name
+        end
+
+        it 'return myHonda Website Concessionária' do
+          expect(switch_source).to eq(source_name)
+        end
       end
 
-      it 'return myHonda Website Concessionária' do
-        expect(switch_source).to eq(source_name)
-      end
-    end
+      context 'when come from Sroque' do
+        before do
+          source.name = "#{source_name} - Sroque"
+        end
 
-    context 'when come from Sroque' do
-      before do
-        source.name = "#{source_name} - Sroque"
-      end
-
-      it 'return myHonda Website Concessionária - Sroque' do
-        expect(switch_source).to eq("#{source_name} - Sroque")
-      end
-    end
-
-    context 'when come from Ibiuna' do
-      before do
-        source.name = "#{source_name} - Ibiuna"
+        it 'return myHonda Website Concessionária - Sroque' do
+          expect(switch_source).to eq("#{source_name} - Sroque")
+        end
       end
 
-      it 'return myHonda Website Concessionária - Ibiuna' do
-        expect(switch_source).to eq("#{source_name} - Ibiuna")
-      end
-    end
+      context 'when come from Ibiuna' do
+        before do
+          source.name = "#{source_name} - Ibiuna"
+        end
 
-    context 'Sroque with message 1622153' do
-      before do
-        source.name = "#{source_name} - São Roque"
-        lead.message = 'Código da concessionária 1622153'
-      end
-
-      it 'return myHonda Website Concessionária - Sroque' do
-        expect(switch_source).to eq("#{source_name} - Sroque")
-      end
-    end
-  end
-
-  context 'when source name is myHonda - Peças' do
-    let(:source_name) { 'myHonda - Peças' }
-
-    context 'when come from Sroque' do
-      before do
-        source.name = "#{source_name} - Sroque"
+        it 'return myHonda Website Concessionária - Ibiuna' do
+          expect(switch_source).to eq("#{source_name} - Ibiuna")
+        end
       end
 
-      it 'return myHonda - Peças - Sroque' do
-        expect(switch_source).to eq("#{source_name} - Sroque")
-      end
-    end
-  end
+      context 'Sroque with message 1622153' do
+        before do
+          source.name = "#{source_name} - São Roque"
+          lead.message = 'Código da concessionária 1622153'
+        end
 
-  context 'when source name is myHonda - Serviços' do
-    let(:source_name) { 'myHonda - Serviços' }
-
-    context 'when come from Ibiuna' do
-      before do
-        source.name = "#{source_name} - Ibiuna"
-      end
-
-      it 'return myHonda - Serviços - Ibiuna' do
-        expect(switch_source).to eq("#{source_name} - Ibiuna")
-      end
-    end
-  end
-
-  context 'when source name is myHonda - Website Honda' do
-    let(:source_name) { 'myHonda - Website Honda' }
-
-    context 'when come from Mercês' do
-      before do
-        source.name = "#{source_name} - Mercês"
-        lead.message = 'Código da concessionária 1010433'
-      end
-
-      it 'return myHonda - Website Honda - Mercês' do
-        expect(switch_source).to eq("#{source_name} - Mercês")
+        it 'return myHonda Website Concessionária - Sroque' do
+          expect(switch_source).to eq("#{source_name} - Sroque")
+        end
       end
     end
 
-    context 'when come from São Roque' do
-      before do
-        source.name = 'Website Honda'
-        lead.message = 'Código da concessionária 1622153'
-      end
+    context 'when source name is myHonda - Peças' do
+      let(:source_name) { 'myHonda - Peças' }
 
-      it 'return myHonda - Website Honda - Sroque' do
-        expect(switch_source).to eq(source_name)
-      end
-    end
-  end
+      context 'when come from Sroque' do
+        before do
+          source.name = "#{source_name} - Sroque"
+        end
 
-  context 'when source name is myHonda - Social' do
-    let(:source_name) { 'myHonda - Social' }
-
-    context 'without city' do
-      before do
-        source.name = source_name
-      end
-
-      it 'return myHonda - Social' do
-        expect(switch_source).to eq(source_name)
+        it 'return myHonda - Peças - Sroque' do
+          expect(switch_source).to eq("#{source_name} - Sroque")
+        end
       end
     end
 
-    context 'when come from Mercês' do
-      before do
-        source.name = "#{source_name} - Mercês"
-      end
+    context 'when source name is myHonda - Serviços' do
+      let(:source_name) { 'myHonda - Serviços' }
 
-      it 'return myHonda - Social - Mercês' do
-        expect(switch_source).to eq("#{source_name} - Mercês")
+      context 'when come from Ibiuna' do
+        before do
+          source.name = "#{source_name} - Ibiuna"
+        end
+
+        it 'return myHonda - Serviços - Ibiuna' do
+          expect(switch_source).to eq("#{source_name} - Ibiuna")
+        end
       end
     end
 
-    context 'when come only Social in source name' do
-      before do
-        source.name = 'Social'
+    context 'when source name is myHonda - Website Honda' do
+      let(:source_name) { 'myHonda - Website Honda' }
+
+      context 'when come from Mercês' do
+        before do
+          source.name = "#{source_name} - Mercês"
+          lead.message = 'Código da concessionária 1010433'
+        end
+
+        it 'return myHonda - Website Honda - Mercês' do
+          expect(switch_source).to eq("#{source_name} - Mercês")
+        end
       end
 
-      it 'return myHonda - Social' do
-        expect(switch_source).to eq(source_name)
+      context 'when come from São Roque' do
+        before do
+          source.name = 'Website Honda'
+          lead.message = 'Código da concessionária 1622153'
+        end
+
+        it 'return myHonda - Website Honda - Sroque' do
+          expect(switch_source).to eq(source_name)
+        end
+      end
+    end
+
+    context 'when source name is myHonda - Social' do
+      let(:source_name) { 'myHonda - Social' }
+
+      context 'without city' do
+        before do
+          source.name = source_name
+        end
+
+        it 'return myHonda - Social' do
+          expect(switch_source).to eq(source_name)
+        end
+      end
+
+      context 'when come from Mercês' do
+        before do
+          source.name = "#{source_name} - Mercês"
+        end
+
+        it 'return myHonda - Social - Mercês' do
+          expect(switch_source).to eq("#{source_name} - Mercês")
+        end
+      end
+
+      context 'when come only Social in source name' do
+        before do
+          source.name = 'Social'
+        end
+
+        it 'return myHonda - Social' do
+          expect(switch_source).to eq(source_name)
+        end
       end
     end
   end
