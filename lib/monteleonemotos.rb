@@ -13,7 +13,19 @@ module Monteleonemotos
       lead_message = lead.message || ''
       lead_phone = lead.customer&.phone&.tr('^0-9', '') || ''
 
-      if lead_message.include?('1010433')
+      if source_name_down['honda']
+        if source_name_down['ibiuna']
+          "#{source_name.split(' - ')[0..-2].join(' - ')} - Ibiuna"
+        elsif source_name_down['sroque'] || source_name_down['são roque']
+          "#{source_name.split(' - ')[0..-2].join(' - ')} - Sroque"
+        elsif source_name_down == 'website honda'
+          'myHonda - Website Honda'
+        else
+          source_name
+        end
+      elsif source_name_down['social']
+        'myHonda - Social'
+      elsif lead_message.include?('1010433')
         "#{source_name} - Mercês"
       elsif lead_message.include?('1622153')
         "#{source_name} - Sroque"
