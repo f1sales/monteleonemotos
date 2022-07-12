@@ -132,17 +132,17 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
         end
       end
 
-      # context 'when product name contains Peças e acessórios' do
-      #   before do
-      #     lead.message = 'Código da concessionária 1629248'
-      #     lead.description = 'WebSite Concessionária - Bot Whatsapp'
-      #     product.name = 'XRE 300 - Financiamento'
-      #   end
+      context 'when product name contains Peças e acessórios' do
+        before do
+          lead.message = 'Código da concessionária 1629248'
+          lead.description = 'WebSite Concessionária - Bot Whatsapp'
+          product.name = 'Agendamento de serviços'
+        end
 
-      #   it 'return myHonda Website Concessionária - Mercês' do
-      #     expect(switch_source).to eq("#{source_name} - Serviços - Ibiuna")
-      #   end
-      # end
+        it 'return myHonda Website Concessionária - Mercês' do
+          expect(switch_source).to eq("#{source_name} - Serviços - Ibiuna")
+        end
+      end
     end
   end
 end
