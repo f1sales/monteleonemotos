@@ -104,7 +104,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
           lead.description = 'Portal do Proprietário'
         end
 
-        it 'return myHonda Website Concessionária - Mercês' do
+        it 'return myHonda Website Concessionária - Ibiuna' do
           expect(switch_source).to eq("#{source_name} - Website Honda - Ibiuna")
         end
       end
@@ -115,7 +115,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
           lead.description = 'Website Honda - Site BHB'
         end
 
-        it 'return myHonda Website Concessionária - Mercês' do
+        it 'return myHonda Website Concessionária - Sroque' do
           expect(switch_source).to eq("#{source_name} - Website Honda - Sroque")
         end
       end
@@ -132,14 +132,14 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
         end
       end
 
-      context 'when product name contains Peças e acessórios' do
+      context 'when product name contains Agendamento de serviços' do
         before do
           lead.message = 'Código da concessionária 1629248'
           lead.description = 'WebSite Concessionária - Bot Whatsapp'
           product.name = 'Agendamento de serviços'
         end
 
-        it 'return myHonda Website Concessionária - Mercês' do
+        it 'return myHonda Website Concessionária - Ibiuna' do
           expect(switch_source).to eq("#{source_name} - Serviços - Ibiuna")
         end
       end
