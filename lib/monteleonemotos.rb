@@ -37,6 +37,8 @@ module Monteleonemotos
           "#{@source_name} - Peças"
         elsif @product_name['serviços']
           "#{@source_name} - Serviços"
+        elsif @source_name['Website Honda']
+          @source_name
         else
           "#{@source_name} - Website Honda"
         end

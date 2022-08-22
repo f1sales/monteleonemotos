@@ -156,5 +156,17 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
         end
       end
     end
+
+    context 'when source name already has Website Honda' do
+      before do
+        lead.message = 'Código da concessionária'
+        lead.description = 'WebSite Concessionária - Bot Whatsapp'
+        source.name = 'myHonda - Website Honda - Ibiuna'
+      end
+
+      it 'return myHonda Website Concessionária - Ibiuna' do
+        expect(switch_source).to eq('myHonda - Website Honda - Ibiuna')
+      end
+    end
   end
 end
