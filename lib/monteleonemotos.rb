@@ -13,6 +13,8 @@ module Monteleonemotos
         @lead = lead
         @source_name = @lead.source.name
         if source_name_down['honda']
+          return nil if @lead.attachments
+
           honda_source
         elsif source_name_down.include?('mobiauto')
           mobiauto_source
