@@ -15,6 +15,8 @@ module Monteleonemotos
         if source_name_down['honda']
           return nil if @lead.attachments
 
+          return 'Fonte sem time' if description_down['offline']
+
           honda_source
         elsif source_name_down.include?('mobiauto')
           mobiauto_source
@@ -24,6 +26,10 @@ module Monteleonemotos
       end
 
       private
+
+      def description_down
+        @lead.description&.downcase || ''
+      end
 
       def source_name_down
         @source_name.downcase
