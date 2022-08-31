@@ -169,31 +169,31 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       end
     end
 
-    context 'when is from an email' do
-      before do
-        lead.message = 'Código da concessionária'
-        lead.description = 'WebSite Concessionária - Bot Whatsapp'
-        lead.source.name = 'myHonda - Website Honda - Ibiuna'
-        lead.attachments = 'https://myhonda.force.com/leads/s/lead/00Q4M'
-      end
+    # context 'when is from an email' do
+    #   before do
+    #     lead.message = 'Código da concessionária'
+    #     lead.description = 'WebSite Concessionária - Bot Whatsapp'
+    #     lead.source.name = 'myHonda - Website Honda - Ibiuna'
+    #     lead.attachments = 'https://myhonda.force.com/leads/s/lead/00Q4M'
+    #   end
 
-      it 'return nil' do
-        expect(switch_source).to be_nil
-      end
-    end
+    #   it 'return nil' do
+    #     expect(switch_source).to be_nil
+    #   end
+    # end
 
-    context 'when is from an email' do
-      before do
-        lead.message = 'Código da concessionária'
-        lead.description = 'WebSite Concessionária - Bot Whatsapp'
-        lead.source.name = 'myHonda - Website Honda - Ibiuna'
-        lead.attachments = ''
-      end
+    # context 'when is from an email' do
+    #   before do
+    #     lead.message = 'Código da concessionária'
+    #     lead.description = 'WebSite Concessionária - Bot Whatsapp'
+    #     lead.source.name = 'myHonda - Website Honda - Ibiuna'
+    #     lead.attachments = ''
+    #   end
 
-      it 'return nil' do
-        expect(switch_source).to be_nil
-      end
-    end
+    #   it 'return nil' do
+    #     expect(switch_source).to be_nil
+    #   end
+    # end
 
     context 'when is from an email' do
       before do

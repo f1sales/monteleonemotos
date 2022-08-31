@@ -13,7 +13,7 @@ module Monteleonemotos
         @lead = lead
         @source_name = @lead.source.name
         if source_name_down['honda']
-          return nil if @lead.attachments
+          # return nil if @lead.attachments
 
           return 'Fonte sem time' if description_down['offline']
 
