@@ -168,5 +168,68 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
         expect(switch_source).to eq('myHonda - Website Honda - Ibiuna')
       end
     end
+
+    context 'when is from an email' do
+      before do
+        lead.message = 'Código da concessionária'
+        lead.description = 'WebSite Concessionária - Bot Whatsapp'
+        lead.source.name = 'myHonda - Website Honda - Ibiuna'
+        lead.attachments = 'https://myhonda.force.com/leads/s/lead/00Q4M'
+      end
+
+      it 'return nil' do
+        expect(switch_source).to be_nil
+      end
+    end
+
+    context 'when is from an email' do
+      before do
+        lead.message = 'Código da concessionária'
+        lead.description = 'WebSite Concessionária - Bot Whatsapp'
+        lead.source.name = 'myHonda - Website Honda - Ibiuna'
+        lead.attachments = ''
+      end
+
+      it 'return nil' do
+        expect(switch_source).to be_nil
+      end
+    end
+
+    context 'when is from an email' do
+      before do
+        lead.message = 'Código da concessionária'
+        lead.description = 'WebSite Concessionária - Bot Whatsapp'
+        lead.source.name = 'myHonda - Website Honda - Ibiuna'
+        lead.attachments = nil
+      end
+
+      it 'return nil' do
+        expect(switch_source).to eq('myHonda - Website Honda - Ibiuna')
+      end
+    end
+
+    context 'when description contain Offiline' do
+      before do
+        lead.message = 'Código da concessionária'
+        lead.description = 'Offline - Showroom concessionária'
+        lead.source.name = 'myHonda - Website Honda - Ibiuna'
+      end
+
+      it 'return nil' do
+        expect(switch_source).to eq('Fonte sem time')
+      end
+    end
+
+    context 'when description is nil' do
+      before do
+        lead.message = 'Código da concessionária'
+        lead.description = nil
+        lead.source.name = 'myHonda - Website Honda - Ibiuna'
+      end
+
+      it 'return nil' do
+        expect(switch_source).to eq('myHonda - Website Honda - Ibiuna')
+      end
+    end
   end
 end
