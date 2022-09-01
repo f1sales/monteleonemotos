@@ -12,20 +12,14 @@ module Monteleonemotos
       def switch_source(lead)
         @lead = lead
         @source_name = @lead.source.name
-        if source_name_down['honda']
-          # return nil if @lead.attachments
-
-          return 'Fonte sem time' if description_down['offline']
-
-          honda_source
-        elsif source_name_down.include?('mobiauto')
-          mobiauto_source
-        else
-          @source_name
-        end
+        return_source
       end
 
       private
+
+      def attachments
+        @lead.attachments || []
+      end
 
       def description_down
         @lead.description&.downcase || ''
@@ -45,6 +39,20 @@ module Monteleonemotos
 
       def product_name
         @lead.product&.name&.downcase || ''
+      end
+
+      def return_source
+        if source_name_down['honda']
+          return nil unless attachments.empty?
+
+          return 'Fonte sem time' if description_down['offline']
+
+          honda_source
+        elsif source_name_down.include?('mobiauto')
+          mobiauto_source
+        else
+          @source_name
+        end
       end
 
       def honda_source
